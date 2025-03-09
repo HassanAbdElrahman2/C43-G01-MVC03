@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LinkDev.IKEA.DAL.Entities.Departments
 {
-    internal class Department : BaseAuditableEntity<int>
+     class Department : BaseAuditableEntity<int>
     {
         public required string Name { get; set; }
         public required string Code { get; set; }
