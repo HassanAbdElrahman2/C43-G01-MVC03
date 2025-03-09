@@ -13,9 +13,13 @@ namespace LinkDev.IKEA.DAL.Persistence.Data
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=.;Database=IKEA;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=.;Database=IKEA;Trusted_Connection=True;TrustServerCertificate=True");
 
 
+        }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
+        {
+            
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
