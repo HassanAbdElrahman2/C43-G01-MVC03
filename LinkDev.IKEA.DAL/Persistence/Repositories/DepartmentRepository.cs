@@ -31,28 +31,28 @@ namespace LinkDev.IKEA.DAL.Persistence.Repositories
                 return _DbContext.Departments.AsNoTracking();
             return _DbContext.Departments;
         }
-        public int Add(Department department)
+        public void Add(Department department)
         {
             _DbContext.Departments.Add(department);
 
-            return _DbContext.SaveChanges();
+            
         }
 
-        public int Update(Department department)
+        public void Update(Department department)
         {
             _DbContext.Departments.Update(department);
-            return _DbContext.SaveChanges();
+            
         }
 
-        public int Delete( int id )
+        public void Delete( int id )
         {
             var department =_DbContext.Departments.Find(id);
             if (department is { })
             {
                 _DbContext.Departments.Remove(department);
-                return _DbContext.SaveChanges();
+               
             }
-            return 0;
+           
         }
     }
 }
