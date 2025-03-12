@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Persistence\Data\Migrations\" />
     <Folder Include="Persistence\UitOfWork\" />
-    <Folder Include="Persistence\Repositories\" />
   </ItemGroup>
 
   <ItemGroup>
