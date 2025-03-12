@@ -11,7 +11,7 @@ namespace LinkDev.IKEA.DAL.Persistence.UitOfWork
 {
     internal class UintOfWork : IUnitOfWork
     {
-        public IDepartmentRepository? DepartmentRepository { get; set ; }
+        public IDepartmentRepository DepartmentRepository { get; set ; }
 
         private ApplicationDbContext _dbContext;
 

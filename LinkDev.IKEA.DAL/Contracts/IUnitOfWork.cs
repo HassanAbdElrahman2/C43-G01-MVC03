@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace LinkDev.IKEA.DAL.Contracts
 {
-    internal interface IUnitOfWork
+    public interface IUnitOfWork
     {
-        public IDepartmentRepository?  DepartmentRepository { get; set; }
+        public IDepartmentRepository  DepartmentRepository { get; set; }
         int Complete();
         void Dispose();
     }

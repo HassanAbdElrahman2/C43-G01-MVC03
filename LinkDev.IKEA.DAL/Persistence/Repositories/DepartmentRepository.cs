@@ -44,7 +44,7 @@ namespace LinkDev.IKEA.DAL.Persistence.Repositories
             
         }
 
-        public void Delete( int id )
+        public void Delete( int id ) 
         {
             var department =_DbContext.Departments.Find(id);
             if (department is { })
