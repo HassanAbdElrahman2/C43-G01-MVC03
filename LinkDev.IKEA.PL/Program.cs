@@ -1,5 +1,8 @@
 using LinkDev.IKEA.DAL;
+using LinkDev.IKEA.DAL.Contracts;
 using LinkDev.IKEA.DAL.Persistence.Data;
+using LinkDev.IKEA.DAL.Persistence.Data.DbInitializer;
+using LinkDev.IKEA.PL.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinkDev.IKEA.PL
@@ -19,6 +22,10 @@ namespace LinkDev.IKEA.PL
             #endregion
 
             var app = builder.Build();
+
+            #region DataBase Initialization
+            app.InitializeDataBase(); 
+            #endregion
 
             #region  Configure  HTTP Request Pipeline
             // Configure the HTTP request pipeline.
