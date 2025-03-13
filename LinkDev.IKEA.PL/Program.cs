@@ -1,3 +1,4 @@
+using LinkDev.IKEA.BLL;
 using LinkDev.IKEA.DAL;
 using LinkDev.IKEA.DAL.Contracts;
 using LinkDev.IKEA.DAL.Persistence.Data;
@@ -18,6 +19,7 @@ namespace LinkDev.IKEA.PL
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddPersistenceServices(builder.Configuration);
+            builder.Services.AddApplicationServices();
 
             #endregion
 

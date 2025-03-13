@@ -1,6 +1,7 @@
 ﻿using LinkDev.IKEA.DAL.Contracts;
 using LinkDev.IKEA.DAL.Contracts.Repositories;
 using LinkDev.IKEA.DAL.Persistence.Data;
+using LinkDev.IKEA.DAL.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace LinkDev.IKEA.DAL.Persistence.UitOfWork
         public UintOfWork(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
+            DepartmentRepository = new DepartmentRepository(dbContext);
         }
 
         public int Complete()
