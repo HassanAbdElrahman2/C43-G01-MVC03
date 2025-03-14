@@ -1,5 +1,6 @@
 ﻿using LinkDev.IKEA.BLL.Models.Deoartments;
 using LinkDev.IKEA.BLL.Services.Departments;
+using LinkDev.IKEA.DAL.Entities.Departments;
 using LinkDev.IKEA.PL.ViewModels.Departments;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -67,12 +68,11 @@ namespace LinkDev.IKEA.PL.Controllers
         [HttpPost]
         public ActionResult Create(CreateDepartmentViewModel model)
         {
+            if (!ModelState.IsValid) // Server-Side Validation
+                return View(model);
             var massage = "Department Created Successfully";
             try
             {
-                if (!ModelState.IsValid) // Server-Side Validation
-                    return View(model);
-                
                 var departmentToCeate = new CreateDepartmentDto(model.Name, model.Description, model.Code, model.CreationDate);
                 var Created = _departmentService.CreateDepartment(departmentToCeate) > 0;
                 if (!Created)
@@ -94,5 +94,61 @@ namespace LinkDev.IKEA.PL.Controllers
         }
 
         #endregion
+
+        #region Update
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if (!id.HasValue)
+                return BadRequest();
+            var department = _departmentService.GetDepartmentById(id.Value);
+
+            if (department is null)
+                return NotFound();
+            var departmentViewModel = new UpdateDepartmentViewModel()
+            {
+                Id = department.Id,
+                Code = department.Code,
+                Name = department.Name,
+                Description = department.Description ?? "",
+                CreationDate = department.CreationDate
+
+
+            };
+            TempData["Id"] = id;
+            return View(departmentViewModel);
+        }
+
+        [HttpPost ]
+        public IActionResult Edit([FromRoute]int id,UpdateDepartmentViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+            if (((int?)TempData["Id"]) !=id)
+                return BadRequest();
+            var message = "Department Update Successfully";
+            try
+            {
+               
+                var departmenttoUpdate = new UpdateDepartmentDto(id, model.Name, model.Description, model.Code, model.CreationDate);
+                var updated = _departmentService.UpdateDepartment(departmenttoUpdate) > 0;
+                if (!updated)
+                    message = "Failed to update Department";
+            }
+            catch (Exception ex)
+            {
+
+                // 1. Log Exception in Database or External File (By Default Logging System In .Net or By Serialog Package)
+                _logger.LogError(ex.Message, ex.StackTrace!.ToString());
+                // 2. Set Massage
+                message = "An Error Occurred, Please Try Again Later ";
+            }
+            TempData["Massage"] = message;
+            return RedirectToAction(nameof(Index));
+
+        }
+        #endregion
     }
+
+ 
 }

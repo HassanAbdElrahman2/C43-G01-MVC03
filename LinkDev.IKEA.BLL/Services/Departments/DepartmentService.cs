@@ -60,6 +60,7 @@ namespace LinkDev.IKEA.BLL.Services.Departments
         {
             var depertmentToUpdate = new Department()
             {
+                Id=department.Id,
                 Code = department.Code,
                 Name = department.Name,
                 Description = department.Description,
