@@ -32,7 +32,7 @@ namespace LinkDev.IKEA.PL.Controllers
         #endregion
 
         #region Details
-        public IActionResult Details (int? id)
+        public IActionResult Details (int? id,string viewName= "Details")
         {
             if (!id.HasValue)
                 return BadRequest();
@@ -42,6 +42,7 @@ namespace LinkDev.IKEA.PL.Controllers
                 return NotFound();
             var departmentViewModel = new DepartmentDetailsViewModel()
             {
+                Id=id.Value,
                 Code = department.Code,
                 Name = department.Name,
                 Description = department.Description??"",
@@ -54,7 +55,7 @@ namespace LinkDev.IKEA.PL.Controllers
 
 
             };
-            return View(departmentViewModel);
+            return View(viewName,departmentViewModel);
         }
         #endregion
 
@@ -148,7 +149,43 @@ namespace LinkDev.IKEA.PL.Controllers
 
         }
         #endregion
+
+        #region Delete
+        [HttpGet]
+        public IActionResult Delete(int? id)
+        {
+
+            return RedirectToAction(nameof(Details), new { id = id, viewName = "Delete" });
+        }
+
+        [HttpPost] // POST: /Department/Delete/id
+        public IActionResult Delete(int id)
+        {
+     
+
+            var message = "Department Deleted Successfully";
+            try
+            {
+                var deleted = _departmentService.DeleteDepartment(id) ;
+                if (!deleted)
+                    message = "Failed to Delete Department";
+            }
+            catch (Exception ex)
+            {
+                // 1. Log Exception in Database or External File (By Default Logging System in .NET or any other)
+                _logger.LogError(ex.Message, ex.StackTrace!.ToString());
+                // 2. Set Message
+                message = "An Error Occurred, Please Try Again Later";
+            }
+
+            TempData["Message"] = message;
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
+        #endregion
     }
 
- 
+
 }
