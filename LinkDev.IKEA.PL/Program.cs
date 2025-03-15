@@ -1,5 +1,9 @@
+using LinkDev.IKEA.BLL;
 using LinkDev.IKEA.DAL;
+using LinkDev.IKEA.DAL.Contracts;
 using LinkDev.IKEA.DAL.Persistence.Data;
+using LinkDev.IKEA.DAL.Persistence.Data.DbInitializer;
+using LinkDev.IKEA.PL.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinkDev.IKEA.PL
@@ -15,10 +19,15 @@ namespace LinkDev.IKEA.PL
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddPersistenceServices(builder.Configuration);
+            builder.Services.AddApplicationServices();
 
             #endregion
 
             var app = builder.Build();
+
+            #region DataBase Initialization
+            app.InitializeDataBase(); 
+            #endregion
 
             #region  Configure  HTTP Request Pipeline
             // Configure the HTTP request pipeline.
