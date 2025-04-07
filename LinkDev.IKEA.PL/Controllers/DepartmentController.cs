@@ -151,12 +151,12 @@ namespace LinkDev.IKEA.PL.Controllers
         #endregion
 
         #region Delete
-        [HttpGet]
-        public IActionResult Delete(int? id)
-        {
+        //[HttpGet]
+        //public IActionResult Delete(int? id)
+        //{
 
-            return RedirectToAction(nameof(Details), new { id = id, viewName = "Delete" });
-        }
+        //    return RedirectToAction(nameof(Details), new { id = id, viewName = "Delete" });
+        //}
 
         [HttpPost] // POST: /Department/Delete/id
         public IActionResult Delete(int id)
