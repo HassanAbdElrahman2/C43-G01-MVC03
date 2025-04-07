@@ -3,7 +3,7 @@
     "Code": "DEP3030",
     "Name": "Sales",
     "Description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
-    "CreationDate": "10/10/2010",
+    "CreationDate": "2010-10-10",
     "CreatedBy": "",
     "LastModifiedBy": ""
   },
@@ -11,7 +11,7 @@
     "Code": "DEP2020",
     "Name": "Media",
     "Description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
-    "CreationDate": " 08/22/2000",
+    "CreationDate": "2000-08-22",
     "CreatedBy": "",
     "LastModifiedBy": ""
 
@@ -20,7 +20,7 @@
     "Code": "DEP4040",
     "Name": "Markting",
     "Description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit.",
-    "CreationDate": "01/19/2005",
+    "CreationDate": "2005-01-19",
     "CreatedBy": "",
     "LastModifiedBy": ""
   }
