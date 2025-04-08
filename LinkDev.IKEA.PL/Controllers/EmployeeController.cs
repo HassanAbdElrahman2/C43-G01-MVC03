@@ -106,5 +106,59 @@ namespace LinkDev.IKEA.PL.Controllers
 
         }
         #endregion
+
+        #region Update
+        [HttpGet]
+        public IActionResult Edit(int? Id)
+        {
+            if (!Id.HasValue)
+                return BadRequest();
+            var E = _employeeService.GetEmployeeById(Id.Value);
+            if (E is null)
+                return NotFound();
+            var Employee = new EmployeeUpdateViewModel()
+            {
+                Id = Id.Value,
+                Name = E.Name,
+                Age = E.Age,
+                Salary = E.Salary,
+                IsActive = E.IsActive,
+                Email = E.Email,
+                Address = E.Address,
+                EmployeeType = (EmployeeType)Enum.Parse(typeof(EmployeeType), E.EmployeeType),
+                Gender = (Gender)Enum.Parse(typeof(Gender), E.Gender),
+                HiringDate = E.HiringDate,
+                PhoneNumber = E.PhoneNumber
+            };
+            TempData["Id"] = Id;
+            return View(Employee);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EmployeeUpdateViewModel Model)
+        {
+            if (!ModelState.IsValid)
+                return View(Model);
+            if (!((int?)TempData["Id"] == Model.Id))
+                return NotFound();
+            var Massage = "Employee Update Successfully";
+            try
+            {
+                var Employee = new EmployeeUpdateDto(Model.Id, Model.Name, Model.Age, Model.Address, Model.Salary, Model.IsActive, Model.PhoneNumber, Model.HiringDate, Model.Email, Model.Gender, Model.EmployeeType);
+                var IsUdeted = _employeeService.UpdateEmployee(Employee) > 0;
+                if (!IsUdeted)
+                    Massage = "Failed to update Department";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex.StackTrace!.ToString());
+                Massage = "An Error Occurred, Please Try Again Later ";
+
+            }
+            TempData["Massage"] = Massage;
+            return RedirectToAction(nameof(Index));
+
+        }
+        #endregion
     }
 }
