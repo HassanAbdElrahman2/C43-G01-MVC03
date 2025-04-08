@@ -1,4 +1,5 @@
-﻿using LinkDev.IKEA.BLL.Services.Employees;
+﻿using LinkDev.IKEA.BLL.Models.Employees;
+using LinkDev.IKEA.BLL.Services.Employees;
 using LinkDev.IKEA.DAL.Common.Enums;
 using LinkDev.IKEA.DAL.Entities.Employees.Enums;
 using LinkDev.IKEA.PL.ViewModels.Employees;
@@ -10,14 +11,19 @@ namespace LinkDev.IKEA.PL.Controllers
     {
         #region Services
         private readonly IEmployeeService _employeeService;
-        public EmployeeController(IEmployeeService employeeService)
+        private readonly ILogger<EmployeeController> _logger;
+
+        public EmployeeController(IEmployeeService employeeService,ILogger<EmployeeController>logger )
         {
             _employeeService = employeeService;
-        } 
+           _logger = logger;
+        }
         #endregion
+
+        #region Index
         public IActionResult Index()
         {
-            var Employees=_employeeService.GatEmployees(false).Select(E => new EmployeeViewModel()
+            var Employees = _employeeService.GatEmployees(false).Select(E => new EmployeeViewModel()
             {
                 Id = E.Id,
                 Name = E.Name,
@@ -30,5 +36,43 @@ namespace LinkDev.IKEA.PL.Controllers
             }); ;
             return View(Employees);
         }
+        #endregion
+
+        #region Create
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(EmployeeCreateViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+            var Massage = "Employee Added Successfully";
+            try
+            {
+                var employee = new EmployeeCreateDto(model.Name, model.Age,
+                    model.Address, model.Salary, model.IsActive,
+                    model.PhoneNumber, model.HiringDate, model.Email,
+                    model.Gender, model.EmployeeType);
+                var IsCreate = _employeeService.CreateEmployee(employee) > 0;
+                if (!IsCreate)
+                {
+                    Massage = "Employee is not Added !!!";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                // 1. Log Exception in Database or External File (By Default Logging System In .Net or By Serialog Package)
+                _logger.LogError(ex.Message, ex.StackTrace!.ToString());
+                // 2. Set Massage
+                Massage = "An Error Occurred, Please Try Again Later ";
+            }
+            TempData["Massage"] = Massage;
+            return RedirectToAction(nameof(Index));
+        }
+        #endregion
     }
 }

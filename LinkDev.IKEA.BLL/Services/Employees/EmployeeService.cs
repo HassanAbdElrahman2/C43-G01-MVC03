@@ -63,7 +63,7 @@ namespace LinkDev.IKEA.BLL.Services.Employees
             //    EmployeeType = employee.EmployeeType
                 
             //};
-
+           
             _unitOfWork.EmployeeRepository.Add(_mapper.Map<EmployeeCreateDto,Employee>(employee));
             return _unitOfWork.Complete();
         }
