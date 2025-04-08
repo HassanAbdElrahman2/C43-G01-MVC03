@@ -66,11 +66,33 @@
                         @*<a asp-action="Delete" asp-route-id=@employee.Id class="btn btn-danger">
                             <i class="fas fa-trash"> </i>Delete
                         </a>*@
-                        <button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#@Model">
-                            <i class="fas fa-trash"> </i>Delete
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@employee.Id">
+                            <i class="fas fa-trash"></i> Delete
                         </button>
+                       
                     </td>
                 </tr>
+
+                <div class="modal fade" id="DeleteModal-@employee.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Employee</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are You Sure to Delete @employee.Name?
+                            </div>
+                            <div class="modal-footer">
+                                <form asp-action="Delete" asp-route-id="@employee.Id" class="mt-4">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <input type="submit" value="Delete" class="btn btn-danger" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
             }
 
         </tbody>

@@ -160,5 +160,29 @@ namespace LinkDev.IKEA.PL.Controllers
 
         }
         #endregion
+
+        #region Delete
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var message = "Employee Deleted Successfully";
+            try
+            {
+                var deleted = _employeeService.DeleteEmployee(id);
+                if (!deleted)
+                    message = "Failed to Delete Employee";
+            }
+            catch (Exception ex)
+            {
+                // 1. Log Exception in Database or External File (By Default Logging System in .NET or any other)
+                _logger.LogError(ex.Message, ex.StackTrace!.ToString());
+                // 2. Set Message
+                message = "An Error Occurred, Please Try Again Later";
+            }
+
+            TempData["Massage"] = message;
+            return RedirectToAction(nameof(Index));
+        }
+        #endregion
     }
 }
