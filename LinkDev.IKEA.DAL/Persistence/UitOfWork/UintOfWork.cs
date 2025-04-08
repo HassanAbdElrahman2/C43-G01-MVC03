@@ -2,6 +2,7 @@
 using LinkDev.IKEA.DAL.Contracts.Repositories;
 using LinkDev.IKEA.DAL.Persistence.Data;
 using LinkDev.IKEA.DAL.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +13,26 @@ namespace LinkDev.IKEA.DAL.Persistence.UitOfWork
 {
     internal class UintOfWork : IUnitOfWork
     {
-        public IDepartmentRepository DepartmentRepository { get; set ; }
+        private DepartmentRepository? _DepartmentRepository;
+
+        private EmployeeRepository? _EmployeeRepository;
 
         private ApplicationDbContext _dbContext;
 
         public UintOfWork(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
-            DepartmentRepository = new DepartmentRepository(dbContext);
+           
+        }
+        public IEmployeeRepository EmployeeRepository
+        {
+            get { return _EmployeeRepository??new EmployeeRepository(_dbContext); }
+
+        }
+        public IDepartmentRepository DepartmentRepository
+        {
+            get { return _DepartmentRepository ?? new DepartmentRepository(_dbContext); }
+
         }
 
         public int Complete()
