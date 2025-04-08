@@ -74,5 +74,37 @@ namespace LinkDev.IKEA.PL.Controllers
             return RedirectToAction(nameof(Index));
         }
         #endregion
+
+        #region Details
+        public IActionResult Details([FromRoute] int? Id)
+        {
+            if (!Id.HasValue)
+                return BadRequest();
+            var E = _employeeService.GetEmployeeById(Id.Value);
+            if (E is null)
+                return NotFound();
+            var EmployeeView = new EmployeeDetailsViewModel()
+            {
+                Id = Id.Value,
+                Name = E.Name,
+                Age = E.Age,
+                Salary = E.Salary,
+                IsActive = E.IsActive,
+                Email = E.Email,
+                Gender = (Gender)Enum.Parse(typeof(Gender), E.Gender),
+                EmployeeType = (EmployeeType)Enum.Parse(typeof(EmployeeType), E.EmployeeType),
+                CreatedBy = E.CreatedBy,
+                LastModifiedBy = E.LastModifiedBy,
+                CreatedOn = E.CreatedOn,
+                LastModifiedOn = E.LastModifiedOn,
+                PhoneNumber = E.PhoneNumber,
+                Address = E.Address,
+                HiringDate = E.HiringDate,
+               
+            };
+            return View(EmployeeView);
+
+        }
+        #endregion
     }
 }
