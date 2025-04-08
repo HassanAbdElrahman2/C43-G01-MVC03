@@ -17,7 +17,7 @@ namespace LinkDev.IKEA.DAL.Entities.Employees
         public decimal Salary { get; set; }
         public bool IsActive { get; set; }
         public string? PhoneNumber { get; set; }
-        public DateOnly HiringDate { get; set; }
+        public DateTime HiringDate { get; set; }
         public string? Email { get; set; }
         public Gender Gender { get; set; }
         public EmployeeType EmployeeType { get; set; }

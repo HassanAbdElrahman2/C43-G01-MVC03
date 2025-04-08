@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using LinkDev.IKEA.BLL.Profiles;
 using LinkDev.IKEA.BLL.Services.Departments;
+using LinkDev.IKEA.BLL.Services.Employees;
 using LinkDev.IKEA.DAL.Contracts;
 using LinkDev.IKEA.DAL.Persistence.Data;
 using LinkDev.IKEA.DAL.Persistence.Data.DbInitializer;
@@ -22,6 +23,7 @@ namespace LinkDev.IKEA.BLL
             services.AddScoped<IDepartmentService, DepartmentService>();
             //services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             services.AddAutoMapper(P => P.AddProfile(new MappingProfiles()));
+            services.AddScoped<IEmployeeService, EmployeeService>();
             return services;
         }
     }

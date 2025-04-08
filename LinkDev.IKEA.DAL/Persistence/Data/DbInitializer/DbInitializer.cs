@@ -1,5 +1,6 @@
 ﻿using LinkDev.IKEA.DAL.Contracts;
 using LinkDev.IKEA.DAL.Entities.Departments;
+using LinkDev.IKEA.DAL.Entities.Employees;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -47,12 +48,12 @@ namespace LinkDev.IKEA.DAL.Persistence.Data.DbInitializer
             if (!_context.Employees.Any())
             {
                 var EmployeesData = File.ReadAllText("../LinkDev.IKEA.DAL/Persistence/Data/Seeds/employees.json");
-                var Employees = JsonSerializer.Deserialize<List<Department>>(EmployeesData);
+                var Employees = JsonSerializer.Deserialize<List<Employee>>(EmployeesData);
 
                 if (Employees?.Count > 0)
                 {
 
-                    _context.Departments.AddRange(Employees);
+                    _context.Employees.AddRange(Employees);
                     IsChange = true;
                 }
             }

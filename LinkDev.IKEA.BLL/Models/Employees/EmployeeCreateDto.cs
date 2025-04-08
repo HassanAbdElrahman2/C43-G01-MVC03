@@ -9,6 +9,6 @@ using System.Threading.Tasks;
 namespace LinkDev.IKEA.BLL.Models.Employees
 {
     public record EmployeeCreateDto
-       (string Name, int Age, string? Address, decimal Salary, bool IsActive, string? PhoneNumber, DateOnly HiringDate
+       (string Name, int Age, string? Address, decimal Salary, bool IsActive, string? PhoneNumber, DateTime HiringDate
        , string? Email, Gender Gender, EmployeeType EmployeeType);
 }
