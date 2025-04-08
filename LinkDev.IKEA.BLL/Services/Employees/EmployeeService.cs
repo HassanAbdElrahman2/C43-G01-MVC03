@@ -22,11 +22,14 @@ namespace LinkDev.IKEA.BLL.Services.Employees
         }
         public IEnumerable<EmployeeDto> GatEmployees(bool WithTracking)
         {
-            var Employees=_unitOfWork.EmployeeRepository.GetAll(WithTracking);
+            var Employees=_unitOfWork.EmployeeRepository
+                .GetAll(E=> new EmployeeDto(E.Id, E.Name, E.Age, E.Salary, E.IsActive, E.Email, E.Gender.ToString(), E.EmployeeType.ToString()));
             foreach (var E in Employees)
             {
                 // yield return new EmployeeDto(E.Id, E.Name, E.Age, E.Salary, E.IsActive, E.Email, E.Gender.ToString(), E.EmployeeType.ToString());
-                yield return _mapper.Map<Employee, EmployeeDto>(E);
+                // yield return _mapper.Map<Employee, EmployeeDto>(E);
+                yield return E;
+
             }
 
         }

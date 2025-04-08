@@ -3,6 +3,7 @@ using LinkDev.IKEA.DAL.Entities.Departments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace LinkDev.IKEA.DAL.Common.Interfaces
         
     {
         IEnumerable<TEntity> GetAll(bool WithTracking = false);
+        IEnumerable<TResult> GetAll<TResult>(Expression<Func<TEntity,TResult>> selector);
         TEntity? GetById(TKey id);
         void Add(TEntity entity);
         void Update(TEntity entity);

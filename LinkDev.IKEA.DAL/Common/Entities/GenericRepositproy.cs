@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -48,6 +49,11 @@ namespace LinkDev.IKEA.DAL.Common.Entities
             var Entity = dbContext.Set<TEntity>().Find(id);
             if (Entity is { })
                 dbContext.Set<TEntity>().Remove(Entity);
+        }
+
+        public IEnumerable<TResult> GetAll<TResult>(Expression<Func<TEntity, TResult>> selector)
+        {
+            return dbContext.Set<TEntity>().Select(selector).ToList();
         }
     }
 }
