@@ -4,6 +4,7 @@ using LinkDev.IKEA.DAL.Contracts;
 using LinkDev.IKEA.DAL.Persistence.Data;
 using LinkDev.IKEA.DAL.Persistence.Data.DbInitializer;
 using LinkDev.IKEA.PL.Extensions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinkDev.IKEA.PL
@@ -17,7 +18,7 @@ namespace LinkDev.IKEA.PL
 
             #region Configure Services
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(options=>new AutoValidateAntiforgeryTokenAttribute());
             builder.Services.AddPersistenceServices(builder.Configuration);
             builder.Services.AddApplicationServices();
 
