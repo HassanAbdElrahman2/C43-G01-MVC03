@@ -15,7 +15,7 @@ namespace LinkDev.IKEA.DAL.Common.Interfaces
         
     {
         IEnumerable<TEntity> GetAll(bool WithTracking = false);
-        IEnumerable<TResult> GetAll<TResult>(Expression<Func<TEntity,TResult>> selector);
+        IEnumerable<TResult> GetAll<TResult>(Expression<Func<TEntity,TResult>> selector); // To previent any one make query form outside repository 
         TEntity? GetById(TKey id);
         void Add(TEntity entity);
         void Update(TEntity entity);
