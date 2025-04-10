@@ -55,7 +55,7 @@ namespace LinkDev.IKEA.PL.Controllers
                 var employee = new EmployeeCreateDto(model.Name, model.Age,
                     model.Address, model.Salary, model.IsActive,
                     model.PhoneNumber, model.HiringDate, model.Email,
-                    model.Gender, model.EmployeeType);
+                    model.Gender, model.EmployeeType,model.DepartmentId);
                 var IsCreate = _employeeService.CreateEmployee(employee) > 0;
                 if (!IsCreate)
                 {
@@ -128,7 +128,9 @@ namespace LinkDev.IKEA.PL.Controllers
                 EmployeeType = (EmployeeType)Enum.Parse(typeof(EmployeeType), E.EmployeeType),
                 Gender = (Gender)Enum.Parse(typeof(Gender), E.Gender),
                 HiringDate = E.HiringDate,
-                PhoneNumber = E.PhoneNumber
+                PhoneNumber = E.PhoneNumber,
+                DepartmentId=E.DepartmentId
+                
             };
             TempData["Id"] = Id;
             return View(Employee);
@@ -144,7 +146,7 @@ namespace LinkDev.IKEA.PL.Controllers
             var Massage = "Employee Update Successfully";
             try
             {
-                var Employee = new EmployeeUpdateDto(Model.Id, Model.Name, Model.Age, Model.Address, Model.Salary, Model.IsActive, Model.PhoneNumber, Model.HiringDate, Model.Email, Model.Gender, Model.EmployeeType);
+                var Employee = new EmployeeUpdateDto(Model.Id, Model.Name, Model.Age, Model.Address, Model.Salary, Model.IsActive, Model.PhoneNumber, Model.HiringDate, Model.Email, Model.Gender, Model.EmployeeType,Model.DepartmentId);
                 var IsUdeted = _employeeService.UpdateEmployee(Employee) > 0;
                 if (!IsUdeted)
                     Massage = "Failed to update Department";
