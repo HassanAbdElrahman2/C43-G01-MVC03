@@ -1,4 +1,5 @@
 ﻿using LinkDev.IKEA.DAL.Common.Enums;
+using LinkDev.IKEA.DAL.Entities.Departments;
 using LinkDev.IKEA.DAL.Entities.Employees.Enums;
 using System;
 using System.Collections.Generic;
@@ -21,5 +22,8 @@ namespace LinkDev.IKEA.DAL.Entities.Employees
         public string? Email { get; set; }
         public Gender Gender { get; set; }
         public EmployeeType EmployeeType { get; set; }
+        public int? DepartmentId { get; set; }
+        // Navagational Property
+        public Department? Department { get; set; }
     }
 }
