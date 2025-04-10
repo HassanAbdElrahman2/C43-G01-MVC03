@@ -52,25 +52,7 @@
                     <td>@Html.DisplayFor(E => employee.Salary)</td>
                     <td><i class="fa @(employee.IsActive?"fa-solid fa-circle-check text-success":"fa-times-circle text-danger")"></i></td>
                     <td>@employee.Gender</td>
-                    <td>
-                        <a asp-action="Details" asp-route-id=@employee.Id class="btn btn-warning">
-                            <i class="fas fa-eye"> </i>Details
-                        </a>
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id=@employee.Id class="btn btn-success">
-                            <i class="fas fa-edit"> </i>Update
-                        </a>
-                    </td>
-                    <td>
-                        @*<a asp-action="Delete" asp-route-id=@employee.Id class="btn btn-danger">
-                            <i class="fas fa-trash"> </i>Delete
-                        </a>*@
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@employee.Id">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                       
-                    </td>
+                    <partial name="_ButtonsPartial" model="@employee.Id" />
                 </tr>
 
                 <div class="modal fade" id="DeleteModal-@employee.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
