@@ -22,5 +22,7 @@ namespace LinkDev.IKEA.PL.ViewModels.Employees
         public Gender Gender { get; set; }
         [Display(Name = "Type")]
         public EmployeeType EmployeeType { get; set; }
+        [Display(Name = "Department")]
+        public string? DepartmetName { get; set; }
     }
 }

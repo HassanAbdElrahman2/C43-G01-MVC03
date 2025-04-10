@@ -21,6 +21,7 @@ namespace LinkDev.IKEA.DAL
                // contextLifetime: ServiceLifetime.Scoped,optionsLifetime: ServiceLifetime.Scoped,
                (optionsBuilder) => {
                    optionsBuilder.UseSqlServer(connectionString: configuration.GetConnectionString("DefaultConnection"));
+                   optionsBuilder.UseLazyLoadingProxies();
                }
               
               );

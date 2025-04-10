@@ -24,6 +24,6 @@ namespace LinkDev.IKEA.DAL.Entities.Employees
         public EmployeeType EmployeeType { get; set; }
         public int? DepartmentId { get; set; }
         // Navagational Property
-        public Department? Department { get; set; }
+        public virtual Department? Department { get; set; }
     }
 }

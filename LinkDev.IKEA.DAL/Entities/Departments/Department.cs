@@ -17,6 +17,6 @@ namespace LinkDev.IKEA.DAL.Entities.Departments
         [JsonConverter(typeof(DateOnlyJsonConverter))]
         public DateOnly CreationDate { get; set; }
         // Navagational Property
-        public ICollection<Employee> Employees { get; set; } = new HashSet<Employee>();
+        public virtual ICollection<Employee> Employees { get; set; } = new HashSet<Employee>();
     }
 }

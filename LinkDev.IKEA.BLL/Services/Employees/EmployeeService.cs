@@ -23,7 +23,11 @@ namespace LinkDev.IKEA.BLL.Services.Employees
         public IEnumerable<EmployeeDto> GatEmployees(bool WithTracking)
         {
             var Employees=_unitOfWork.EmployeeRepository
-                .GetAll(E=> new EmployeeDto(E.Id, E.Name, E.Age, E.Salary, E.IsActive, E.Email, E.Gender.ToString(), E.EmployeeType.ToString()));
+                .GetAll(E=> new EmployeeDto(E.Id, E.Name,
+                E.Age, E.Salary, E.IsActive,
+                E.Email, E.Gender.ToString(),
+                E.EmployeeType.ToString(),
+                E.Department==null?null: E.Department.Name));
             foreach (var E in Employees)
             {
                 // yield return new EmployeeDto(E.Id, E.Name, E.Age, E.Salary, E.IsActive, E.Email, E.Gender.ToString(), E.EmployeeType.ToString());
@@ -36,17 +40,20 @@ namespace LinkDev.IKEA.BLL.Services.Employees
         public EmployeeDetailsDto? GetEmployeeById(int id)
         {
             var Employee = _unitOfWork.EmployeeRepository.GetById(id);
-            //return Employee is null? null: new EmployeeDetailsDto
-            //       (Employee.Id, Employee.Name,
-            //       Employee.Age, Employee.Address,
-            //       Employee.Salary, Employee.IsActive,
-            //       Employee.PhoneNumber,Employee.HiringDate,
-            //       Employee.Email, Employee.Gender.ToString(),
-            //       Employee.EmployeeType.ToString(),
-            //       Employee.CreatedBy,Employee.CreatedOn, 
-            //       Employee.LastModifiedBy, Employee.LastModifiedOn);
+            return Employee is null? null:    new EmployeeDetailsDto
+            (Employee.Id, Employee.Name,
+            Employee.Age, Employee.Address,
+            Employee.Salary, Employee.IsActive,
+            Employee.PhoneNumber, Employee.HiringDate,
+            Employee.Email, Employee.Gender.ToString(),
+            Employee.EmployeeType.ToString(),
+            Employee.CreatedBy, Employee.CreatedOn,
+            Employee.LastModifiedBy,
+            Employee.LastModifiedOn,
+            Employee.DepartmentId,
+            Employee.Department?.Name);
 
-            return Employee is null ? null : _mapper.Map<Employee, EmployeeDetailsDto>(Employee);
+           // return Employee is null ? null : _mapper.Map<Employee, EmployeeDetailsDto>(Employee);
         }
         public int CreateEmployee(EmployeeCreateDto employee)
         {

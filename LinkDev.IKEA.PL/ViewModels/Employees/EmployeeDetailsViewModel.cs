@@ -27,6 +27,8 @@ namespace LinkDev.IKEA.PL.ViewModels.Employees
         public DateTime CreatedOn { get; set; }
         public required string LastModifiedBy { get; set; }
         public DateTime LastModifiedOn { get; set; }
+        [Display(Name = "Department Name")]
+        public string? DepartmetName { get; set; }
 
     }
 }

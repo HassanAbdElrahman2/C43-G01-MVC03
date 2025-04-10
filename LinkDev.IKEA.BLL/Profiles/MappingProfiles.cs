@@ -19,7 +19,8 @@ namespace LinkDev.IKEA.BLL.Profiles
             CreateMap<Employee, EmployeeDetailsDto>()
                 .ForMember(Dest => Dest.EmployeeType, option => option.MapFrom(Source => Source.EmployeeType))
                 .ForMember(Dest => Dest.Gender, option => option.MapFrom(Source => Source.Gender))
-                .ForMember(Dest=>Dest.HiringDate,option=>option.MapFrom(Source=>Source.HiringDate)); 
+                .ForMember(Dest=>Dest.HiringDate,option=>option.MapFrom(Source=>Source.HiringDate))
+                .ForMember(Dest=>Dest.Department,option=>option.MapFrom(Source=>Source.Department==null?null: Source.Department.Name)); 
             CreateMap<EmployeeCreateDto, Employee>()
                 .ForMember(Dest => Dest.HiringDate, option => option.MapFrom(Source => Source.HiringDate));
             CreateMap<EmployeeUpdateDto, Employee>()

@@ -33,6 +33,7 @@ namespace LinkDev.IKEA.PL.Controllers
                 Email = E.Email,
                 Gender = (Gender)Enum.Parse(typeof(Gender), E.Gender),
                 EmployeeType = (EmployeeType)Enum.Parse(typeof(EmployeeType), E.EmployeeType),
+                DepartmetName=E.Department ?? "No-Department"
             }); ;
             return View(Employees);
         }
@@ -100,6 +101,7 @@ namespace LinkDev.IKEA.PL.Controllers
                 PhoneNumber = E.PhoneNumber,
                 Address = E.Address,
                 HiringDate = E.HiringDate,
+                DepartmetName=E.Department
                
             };
             return View(EmployeeView);
@@ -129,8 +131,7 @@ namespace LinkDev.IKEA.PL.Controllers
                 Gender = (Gender)Enum.Parse(typeof(Gender), E.Gender),
                 HiringDate = E.HiringDate,
                 PhoneNumber = E.PhoneNumber,
-                DepartmentId=E.DepartmentId
-                
+                DepartmentId=E.DepartmentId  
             };
             TempData["Id"] = Id;
             return View(Employee);

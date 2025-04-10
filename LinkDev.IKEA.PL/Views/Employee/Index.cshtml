@@ -32,6 +32,7 @@
                 <th>@Html.DisplayNameFor(E => E.Email) </th>
                 <th>@Html.DisplayNameFor(E => E.EmployeeType) </th>
                 <th>@Html.DisplayNameFor(E => E.Age) </th>
+                <th>@Html.DisplayNameFor(E => E.DepartmetName) </th>
                 <th>@Html.DisplayNameFor(E => E.Salary) </th>
                 <th>@Html.DisplayNameFor(E => E.IsActive) </th>
                 <th>@Html.DisplayNameFor(E => E.Gender) </th>
@@ -49,6 +50,7 @@
                     <td>@employee.Email</td>
                     <td>@employee.EmployeeType</td>
                     <td>@employee.Age</td>
+                    <td>@employee.DepartmetName</td>
                     <td>@Html.DisplayFor(E => employee.Salary)</td>
                     <td><i class="fa @(employee.IsActive?"fa-solid fa-circle-check text-success":"fa-times-circle text-danger")"></i></td>
                     <td>@employee.Gender</td>

@@ -8,5 +8,5 @@ namespace LinkDev.IKEA.BLL.Models.Employees
 {
     public record EmployeeDetailsDto
          (int Id, string Name, int Age, string? Address, decimal Salary, bool IsActive, string? PhoneNumber, DateTime HiringDate
-         , string? Email, string Gender, string EmployeeType, string CreatedBy, DateTime CreatedOn, string LastModifiedBy, DateTime LastModifiedOn,int? DepartmentId);
+         , string? Email, string Gender, string EmployeeType, string CreatedBy, DateTime CreatedOn, string LastModifiedBy, DateTime LastModifiedOn, int? DepartmentId, string? Department);
 }
