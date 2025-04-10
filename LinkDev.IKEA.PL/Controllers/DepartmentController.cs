@@ -178,7 +178,7 @@ namespace LinkDev.IKEA.PL.Controllers
                 message = "An Error Occurred, Please Try Again Later";
             }
 
-            TempData["Message"] = message;
+            TempData["Massage"] = message;
             return RedirectToAction(nameof(Index));
         }
 
