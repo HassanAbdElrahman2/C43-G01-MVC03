@@ -46,13 +46,27 @@ namespace LinkDev.IKEA.BLL.Services.Departments
             }
         }
 
-        public IEnumerable<DepartmentDto> GetDepartments()
+        public IEnumerable<DepartmentDto> GetDepartments(string? SearchValue)
         {
-            var departments = _unitOfWork.DepartmentRepository.GetAll();
-            foreach (var item in departments)
+            if (!String.IsNullOrWhiteSpace(SearchValue))
             {
-                yield return new DepartmentDto(item.Name, item.Code, item.Id, item.CreationDate);
-                
+                var departments = _unitOfWork.DepartmentRepository.GetAll(D => D.Name.ToLower().Contains(SearchValue.ToLower()));
+                foreach (var item in departments)
+                {
+                    yield return new DepartmentDto(item.Name, item.Code, item.Id, item.CreationDate);
+
+                } 
+
+            }
+            else
+            {
+                var departments = _unitOfWork.DepartmentRepository.GetAll();
+                foreach (var item in departments)
+                {
+                    yield return new DepartmentDto(item.Name, item.Code, item.Id, item.CreationDate);
+
+                }
+
             }
         }
 

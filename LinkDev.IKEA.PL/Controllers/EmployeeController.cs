@@ -21,9 +21,9 @@ namespace LinkDev.IKEA.PL.Controllers
         #endregion
 
         #region Index
-        public IActionResult Index()
+        public IActionResult Index(string? SearchValue)
         {
-            var Employees = _employeeService.GatEmployees(false).Select(E => new EmployeeViewModel()
+            var Employees = _employeeService.GatEmployees(SearchValue).Select(E => new EmployeeViewModel()
             {
                 Id = E.Id,
                 Name = E.Name,
@@ -33,7 +33,7 @@ namespace LinkDev.IKEA.PL.Controllers
                 Email = E.Email,
                 Gender = (Gender)Enum.Parse(typeof(Gender), E.Gender),
                 EmployeeType = (EmployeeType)Enum.Parse(typeof(EmployeeType), E.EmployeeType),
-                DepartmetName=E.Department ?? "No-Department"
+                DepartmetName=E.Department ?? "No Department"
             }); ;
             return View(Employees);
         }

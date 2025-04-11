@@ -55,5 +55,10 @@ namespace LinkDev.IKEA.DAL.Common.Entities
         {
             return dbContext.Set<TEntity>().Select(selector).ToList();
         }
+
+        public IEnumerable<TEntity> GetAll(Expression<Func<TEntity,bool>> expression)
+        {
+           return dbContext.Set<TEntity>().Where(expression).ToList();
+        }
     }
 }

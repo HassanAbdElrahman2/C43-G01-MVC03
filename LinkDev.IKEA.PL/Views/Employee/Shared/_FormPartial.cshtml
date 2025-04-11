@@ -1,6 +1,6 @@
 ﻿@inject IDepartmentService DepartmentService
 @{
-    var deparmtments = DepartmentService.GetDepartments().Select(E => new { Name = E.Name, Id = E.Id });
+    var deparmtments = DepartmentService.GetDepartments(null).Select(E => new { Name = E.Name, Id = E.Id });
     var DepartmentList = new SelectList(deparmtments, nameof(UpdateDepartmentViewModel.Id), nameof(UpdateDepartmentViewModel.Name));
 }
 @model BaseEmployeeCreateEditViewModel
