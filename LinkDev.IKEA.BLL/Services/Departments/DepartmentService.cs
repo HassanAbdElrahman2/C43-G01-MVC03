@@ -20,7 +20,9 @@ namespace LinkDev.IKEA.BLL.Services.Departments
 
         public int CreateDepartment(CreateDepartmentDto department)
         {
-           var depertmentToCreate = new Department() 
+            // may be work with one or more repository before save changes to save all in one time or any problem donot save any operation
+            // this is advantages of UnitOfWork
+            var depertmentToCreate = new Department() 
            { Code = department.Code, Name = department.Name,Description=department.Description,
                CreationDate=department.CreationDate,CreatedBy="",LastModifiedBy="" };
             _unitOfWork.DepartmentRepository.Add(depertmentToCreate);

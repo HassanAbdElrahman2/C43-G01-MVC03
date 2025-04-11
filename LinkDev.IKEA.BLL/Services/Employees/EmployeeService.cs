@@ -73,7 +73,9 @@ namespace LinkDev.IKEA.BLL.Services.Employees
             //    EmployeeType = employee.EmployeeType
                 
             //};
-           
+
+           // may be work with one or more repository before save changes to save all in one time or any problem donot save any operation
+            // this is advantages of UnitOfWork
             _unitOfWork.EmployeeRepository.Add(_mapper.Map<EmployeeCreateDto,Employee>(employee));
             return _unitOfWork.Complete();
         }

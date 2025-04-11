@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace LinkDev.IKEA.DAL.Contracts
 {
+    // Part 09 Unit Of Work[UOW]
     public interface IUnitOfWork
     {
         public IDepartmentRepository  DepartmentRepository { get;  }

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace LinkDev.IKEA.DAL.Persistence.UitOfWork
 {
+    // Part 09 Unit Of Work [UOW]
     internal class UintOfWork : IUnitOfWork
     {
         private DepartmentRepository? _DepartmentRepository;
