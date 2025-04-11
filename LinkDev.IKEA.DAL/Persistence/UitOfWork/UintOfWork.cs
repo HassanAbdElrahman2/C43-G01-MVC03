@@ -14,25 +14,27 @@ namespace LinkDev.IKEA.DAL.Persistence.UitOfWork
     // Part 09 Unit Of Work [UOW]
     internal class UintOfWork : IUnitOfWork
     {
-        private DepartmentRepository? _DepartmentRepository;
+        private readonly Lazy<IDepartmentRepository> _DepartmentRepository;
 
-        private EmployeeRepository? _EmployeeRepository;
+        private readonly Lazy<IEmployeeRepository> _EmployeeRepository;
 
         private ApplicationDbContext _dbContext;
 
         public UintOfWork(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
+            _DepartmentRepository = new Lazy<IDepartmentRepository>(() => new DepartmentRepository(dbContext));
+            _EmployeeRepository = new Lazy<IEmployeeRepository>(() => new EmployeeRepository(dbContext));
            
         }
         public IEmployeeRepository EmployeeRepository
         {
-            get { return _EmployeeRepository??new EmployeeRepository(_dbContext); }
+            get { return _EmployeeRepository.Value; }
 
         }
         public IDepartmentRepository DepartmentRepository
         {
-            get { return _DepartmentRepository ?? new DepartmentRepository(_dbContext); }
+            get { return _DepartmentRepository.Value; }
 
         }
 
