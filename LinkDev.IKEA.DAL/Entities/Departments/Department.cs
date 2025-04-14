@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LinkDev.IKEA.DAL.Entities.Employees;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -15,5 +16,7 @@ namespace LinkDev.IKEA.DAL.Entities.Departments
         public string? Description { get; set; }
         [JsonConverter(typeof(DateOnlyJsonConverter))]
         public DateOnly CreationDate { get; set; }
+        // Navagational Property
+        public virtual ICollection<Employee> Employees { get; set; } = new HashSet<Employee>();
     }
 }

@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Departments ";
 }
-@if (!string.IsNullOrEmpty(TempData["Message"] as string))
+@if (!string.IsNullOrEmpty(TempData["Massage"] as string))
 {
     <div aria-live="polite" aria-atomic="true" class="position-relative">
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
@@ -23,6 +23,16 @@
 <br />
 <br />
 <a asp-controller="Department" asp-action="Create" class="btn btn-primary">Create New Department</a>
+<div class="m-2">
+    <form class="row offset-2" asp-action="Index" method="get">
+        <div class="col-8">
+            <input class="form-control" type="text" name="SearchValue" placeholder="Search By Employee Name" />
+        </div>
+        <div class="col-4">
+            <input class="btn btn-outline-dark" type="submit" value="Search" />
+        </div>
+    </form>
+</div>
 <br />
 
 
@@ -47,29 +57,7 @@
                     <td>@department.Code</td>
                     <td>@department.Name</td>
                     <td>@department.CreationDate </td>
-                    <td>
-                        <a asp-controller="Department" asp-action="Details" asp-route-id="@department.Id" class="btn btn-warning ">
-                            <i class="fas fa-eye "></i>Details
-
-                        </a>
-                    </td>
-                    <td>
-                        <a asp-controller="Department" asp-action="Edit" asp-route-id="@department.Id" class="btn btn-success ">
-                            <i class="fas fa-edit "></i>Update
-
-                        </a>
-                    </td>
-                    <td>
-                        @* <a asp-controller="Department" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger ">
-                            <i class="fas fa-trash "></i>Delete
-
-                        </a>
-                        *@ 
-
-                                   <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@department.Id">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </td>
+                    <partial name="_ButtonsPartial" model="@department.Id" />
 
                 </tr>
                

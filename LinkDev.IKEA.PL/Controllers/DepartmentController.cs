@@ -23,9 +23,9 @@ namespace LinkDev.IKEA.PL.Controllers
 
         #region Index
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(string? SearchValue)
         {
-            var departments = _departmentService.GetDepartments();
+            var departments = _departmentService.GetDepartments(SearchValue);
             var DepartmentViewModel = departments.Select(D => new DepartmentViewModel() { Code = D.Code, Id = D.Id, Name = D.Name, CreationDate = D.CreationDate });
             return View(DepartmentViewModel);
         }
@@ -178,7 +178,7 @@ namespace LinkDev.IKEA.PL.Controllers
                 message = "An Error Occurred, Please Try Again Later";
             }
 
-            TempData["Message"] = message;
+            TempData["Massage"] = message;
             return RedirectToAction(nameof(Index));
         }
 

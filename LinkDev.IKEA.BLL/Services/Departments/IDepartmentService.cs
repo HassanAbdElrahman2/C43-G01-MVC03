@@ -10,7 +10,7 @@ namespace LinkDev.IKEA.BLL.Services.Departments
 {
   public interface IDepartmentService
     {
-        IEnumerable<DepartmentDto> GetDepartments();
+        IEnumerable<DepartmentDto> GetDepartments(string? SearchValue);
         DepartmentDetailsDto? GetDepartmentById(int id);
         int CreateDepartment(CreateDepartmentDto department);
         int UpdateDepartment(UpdateDepartmentDto department);

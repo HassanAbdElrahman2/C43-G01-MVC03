@@ -20,7 +20,9 @@ namespace LinkDev.IKEA.BLL.Services.Departments
 
         public int CreateDepartment(CreateDepartmentDto department)
         {
-           var depertmentToCreate = new Department() 
+            // may be work with one or more repository before save changes to save all in one time or any problem donot save any operation
+            // this is advantages of UnitOfWork
+            var depertmentToCreate = new Department() 
            { Code = department.Code, Name = department.Name,Description=department.Description,
                CreationDate=department.CreationDate,CreatedBy="",LastModifiedBy="" };
             _unitOfWork.DepartmentRepository.Add(depertmentToCreate);
@@ -46,13 +48,27 @@ namespace LinkDev.IKEA.BLL.Services.Departments
             }
         }
 
-        public IEnumerable<DepartmentDto> GetDepartments()
+        public IEnumerable<DepartmentDto> GetDepartments(string? SearchValue)
         {
-            var departments = _unitOfWork.DepartmentRepository.GetAll();
-            foreach (var item in departments)
+            if (!String.IsNullOrWhiteSpace(SearchValue))
             {
-                yield return new DepartmentDto(item.Name, item.Code, item.Id, item.CreationDate);
-                
+                var departments = _unitOfWork.DepartmentRepository.GetAll(D => D.Name.ToLower().Contains(SearchValue.ToLower()));
+                foreach (var item in departments)
+                {
+                    yield return new DepartmentDto(item.Name, item.Code, item.Id, item.CreationDate);
+
+                } 
+
+            }
+            else
+            {
+                var departments = _unitOfWork.DepartmentRepository.GetAll();
+                foreach (var item in departments)
+                {
+                    yield return new DepartmentDto(item.Name, item.Code, item.Id, item.CreationDate);
+
+                }
+
             }
         }
 

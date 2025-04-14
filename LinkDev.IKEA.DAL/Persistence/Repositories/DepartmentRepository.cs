@@ -1,4 +1,5 @@
-﻿using LinkDev.IKEA.DAL.Contracts.Repositories;
+﻿using LinkDev.IKEA.DAL.Common.Entities;
+using LinkDev.IKEA.DAL.Contracts.Repositories;
 using LinkDev.IKEA.DAL.Entities.Departments;
 using LinkDev.IKEA.DAL.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
@@ -11,48 +12,14 @@ using System.Threading.Tasks;
 namespace LinkDev.IKEA.DAL.Persistence.Repositories
 {
     
-    internal class DepartmentRepository : IDepartmentRepository
+    internal class DepartmentRepository : GenericRepositproy<int,Department>,IDepartmentRepository
     {
-        private readonly ApplicationDbContext _DbContext;
+        private readonly ApplicationDbContext dbContext;
 
-        public DepartmentRepository(ApplicationDbContext dbContext)
+        public DepartmentRepository(ApplicationDbContext _dbContext):base(_dbContext)
         {
-            _DbContext = dbContext;
-        }
-
-        public Department? GetById(int id)
-        {
-            var Department = _DbContext.Departments.Find(id);
-            return Department;
-        }
-        public IEnumerable<Department> GetAll(bool WithTracking = false)
-        {
-            if (!WithTracking)
-                return _DbContext.Departments.AsNoTracking();
-            return _DbContext.Departments;
-        }
-        public void Add(Department department)
-        {
-            _DbContext.Departments.Add(department);
-
-            
+            dbContext = _dbContext;
         }
 
-        public void Update(Department department)
-        {
-            _DbContext.Departments.Update(department);
-            
-        }
-
-        public void Delete( int id ) 
-        {
-            var department =_DbContext.Departments.Find(id);
-            if (department is { })
-            {
-                _DbContext.Departments.Remove(department);
-               
-            }
-           
-        }
     }
 }
