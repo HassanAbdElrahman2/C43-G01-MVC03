@@ -1,5 +1,6 @@
 ﻿using LinkDev.IKEA.DAL.Common.Enums;
 using LinkDev.IKEA.DAL.Entities.Employees.Enums;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace LinkDev.IKEA.BLL.Models.Employees
 {
     public record EmployeeUpdateDto
    (int Id, string Name, int Age, string? Address, decimal Salary, bool IsActive, string? PhoneNumber, DateTime HiringDate
-   , string? Email, Gender Gender, EmployeeType EmployeeType, int? DepartmentId);
+   , string? Email, Gender Gender, EmployeeType EmployeeType, int? DepartmentId/*, IFormFile? Image*/);
 
 }

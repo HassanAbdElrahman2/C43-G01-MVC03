@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
@@ -67,6 +68,24 @@ namespace LinkDev.IKEA.BLL.Services.AttschementService
             return true;
         }
 
-      
+        //public IFormFile GetFile(string FileName)
+        //{
+        //    var FilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot//Files//Images", FileName);
+        //    var Memory = new MemoryStream();
+        //    using (var Stream = new FileStream(FilePath, FileMode.Open, FileAccess.Read))
+        //    {
+        //        Stream.CopyTo(Memory);
+        //    };
+            
+            
+        //    Memory.Position = 0;
+        //    var file = new FormFile(Memory, 0, Memory.Length, "image", FileName)
+        //    {
+        //        Headers = new HeaderDictionary(),
+        //        ContentType = Path.GetExtension(FileName)
+        //    };
+        //    ;
+        //    return file;
+        //}
     }
 }

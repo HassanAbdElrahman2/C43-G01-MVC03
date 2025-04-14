@@ -11,5 +11,7 @@ namespace LinkDev.IKEA.BLL.Services.AttschementService
     {
         public string? Upload(IFormFile file,string FolderName);
         public bool Delete(string FilePath);
+
+       // public IFormFile GetFile(string FileName);
     }
 }

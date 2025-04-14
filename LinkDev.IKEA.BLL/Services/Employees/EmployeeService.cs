@@ -55,7 +55,8 @@ namespace LinkDev.IKEA.BLL.Services.Employees
                    Employee.LastModifiedBy,
                    Employee.LastModifiedOn,
                    Employee.DepartmentId,
-                   Employee.Department?.Name);
+                   Employee.Department?.Name
+                   ,Employee.ImageName);
 
             // return Employee is null ? null : _mapper.Map<Employee, EmployeeDetailsDto>(Employee);
         }
@@ -107,9 +108,11 @@ namespace LinkDev.IKEA.BLL.Services.Employees
             //    IsActive = employee.IsActive,
             //    PhoneNumber = employee.PhoneNumber,
             //    Gender = employee.Gender,
-                
+
             //};
-            _unitOfWork.EmployeeRepository.Update(_mapper.Map<EmployeeUpdateDto,Employee>(employee));
+            var Employee = _mapper.Map<EmployeeUpdateDto, Employee>(employee);
+            //Employee.ImageName = employee.Image?.FileName;
+            _unitOfWork.EmployeeRepository.Update(Employee);
             return _unitOfWork.Complete();
         }
 

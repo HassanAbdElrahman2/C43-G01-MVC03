@@ -25,7 +25,7 @@ namespace LinkDev.IKEA.BLL
             //services.AddAutoMapper(typeof(MappingProfiles).Assembly);
             services.AddAutoMapper(P => P.AddProfile(new MappingProfiles()));
             services.AddScoped<IEmployeeService, EmployeeService>();
-            services.AddTransient<IAttachmenetService, AttachmenetService>();
+            services.AddScoped<IAttachmenetService, AttachmenetService>();
             return services;
         }
     }

@@ -1,8 +1,10 @@
 ﻿using LinkDev.IKEA.BLL.Models.Employees;
+using LinkDev.IKEA.BLL.Services.AttschementService;
 using LinkDev.IKEA.BLL.Services.Employees;
 using LinkDev.IKEA.DAL.Common.Enums;
 using LinkDev.IKEA.DAL.Entities.Employees.Enums;
 using LinkDev.IKEA.PL.ViewModels.Employees;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LinkDev.IKEA.PL.Controllers
@@ -103,7 +105,8 @@ namespace LinkDev.IKEA.PL.Controllers
                 PhoneNumber = E.PhoneNumber,
                 Address = E.Address,
                 HiringDate = E.HiringDate,
-                DepartmetName=E.Department
+                DepartmetName=E.Department,
+                ImageName=E.ImageName
                
             };
             return View(EmployeeView);
@@ -113,7 +116,7 @@ namespace LinkDev.IKEA.PL.Controllers
 
         #region Update
         [HttpGet]
-        public IActionResult Edit(int? Id)
+        public IActionResult Edit(int? Id,[FromServices]IAttachmenetService attachmenet)
         {
             if (!Id.HasValue)
                 return BadRequest();
@@ -133,7 +136,8 @@ namespace LinkDev.IKEA.PL.Controllers
                 Gender = (Gender)Enum.Parse(typeof(Gender), E.Gender),
                 HiringDate = E.HiringDate,
                 PhoneNumber = E.PhoneNumber,
-                DepartmentId=E.DepartmentId  
+                DepartmentId = E.DepartmentId,
+               // Image = E.ImageName!=null ? attachmenet.GetFile(E.ImageName):null
             };
             TempData["Id"] = Id;
             return View(Employee);
@@ -149,7 +153,7 @@ namespace LinkDev.IKEA.PL.Controllers
             var Massage = "Employee Update Successfully";
             try
             {
-                var Employee = new EmployeeUpdateDto(Model.Id, Model.Name, Model.Age, Model.Address, Model.Salary, Model.IsActive, Model.PhoneNumber, Model.HiringDate, Model.Email, Model.Gender, Model.EmployeeType,Model.DepartmentId);
+                var Employee = new EmployeeUpdateDto(Model.Id, Model.Name, Model.Age, Model.Address, Model.Salary, Model.IsActive, Model.PhoneNumber, Model.HiringDate, Model.Email, Model.Gender, Model.EmployeeType,Model.DepartmentId/*,Model.Image*/);
                 var IsUdeted = _employeeService.UpdateEmployee(Employee) > 0;
                 if (!IsUdeted)
                     Massage = "Failed to update Department";

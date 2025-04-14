@@ -22,7 +22,9 @@ namespace LinkDev.IKEA.BLL.Profiles
                 .ForMember(Dest=>Dest.HiringDate,option=>option.MapFrom(Source=>Source.HiringDate))
                 .ForMember(Dest=>Dest.Department,option=>option.MapFrom(Source=>Source.Department==null?null: Source.Department.Name)); 
             CreateMap<EmployeeCreateDto, Employee>()
-                .ForMember(Dest => Dest.HiringDate, option => option.MapFrom(Source => Source.HiringDate));
+                .ForMember(Dest => Dest.HiringDate, option => option.MapFrom(Source => Source.HiringDate))
+                .ForMember(Dest=> Dest.ImageName,option=>option.MapFrom(Source=>Source.Image==null?null:Source.Image.FileName));
+
             CreateMap<EmployeeUpdateDto, Employee>()
                 .ForMember(Dest => Dest.HiringDate, option => option.MapFrom(Source => Source.HiringDate));
         }

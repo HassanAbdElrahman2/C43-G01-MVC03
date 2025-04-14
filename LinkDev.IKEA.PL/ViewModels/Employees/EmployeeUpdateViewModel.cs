@@ -7,7 +7,6 @@ namespace LinkDev.IKEA.PL.ViewModels.Employees
     public class EmployeeUpdateViewModel : BaseEmployeeCreateEditViewModel
     {
         public int Id { get; set; }
-      
-        
+       
     }
 }
