@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LinkDev.IKEA.BLL.Models.Employees;
+using LinkDev.IKEA.BLL.Services.AttschementService;
 using LinkDev.IKEA.DAL.Contracts;
 using LinkDev.IKEA.DAL.Entities.Employees;
 using System;
@@ -14,11 +15,13 @@ namespace LinkDev.IKEA.BLL.Services.Employees
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IAttachmenetService _attachmenet;
 
-        public EmployeeService( IUnitOfWork unitOfWork, IMapper mapper)
+        public EmployeeService( IUnitOfWork unitOfWork, IMapper mapper,IAttachmenetService attachmenet)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _attachmenet = attachmenet;
         }
         public IEnumerable<EmployeeDto> GatEmployees(bool WithTracking)
         {
