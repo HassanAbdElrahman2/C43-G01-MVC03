@@ -6,6 +6,7 @@ using LinkDev.IKEA.DAL.Entities.Employees;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -74,12 +75,15 @@ namespace LinkDev.IKEA.BLL.Services.Employees
             //    PhoneNumber = employee.PhoneNumber,
             //    Gender = employee.Gender,
             //    EmployeeType = employee.EmployeeType
-                
-            //};
 
+            //};
+            var Employee = _mapper.Map<EmployeeCreateDto, Employee>(employee);
+            if(employee.Image is not null)
+                Employee.ImageName= _attachmenet.Upload(employee.Image, "Images");
            // may be work with one or more repository before save changes to save all in one time or any problem donot save any operation
-            // this is advantages of UnitOfWork
-            _unitOfWork.EmployeeRepository.Add(_mapper.Map<EmployeeCreateDto,Employee>(employee));
+          // this is advantages of UnitOfWork
+           
+            _unitOfWork.EmployeeRepository.Add(Employee);
             return _unitOfWork.Complete();
         }
         public bool DeleteEmployee(int id)

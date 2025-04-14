@@ -56,7 +56,9 @@ namespace LinkDev.IKEA.PL.Controllers
                 var employee = new EmployeeCreateDto(model.Name, model.Age,
                     model.Address, model.Salary, model.IsActive,
                     model.PhoneNumber, model.HiringDate, model.Email,
-                    model.Gender, model.EmployeeType,model.DepartmentId);
+                    model.Gender, model.EmployeeType,
+                    model.DepartmentId, model.Image);
+
                 var IsCreate = _employeeService.CreateEmployee(employee) > 0;
                 if (!IsCreate)
                 {
