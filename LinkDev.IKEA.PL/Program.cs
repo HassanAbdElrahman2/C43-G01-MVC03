@@ -1,9 +1,11 @@
 using LinkDev.IKEA.BLL;
 using LinkDev.IKEA.DAL;
 using LinkDev.IKEA.DAL.Contracts;
+using LinkDev.IKEA.DAL.Entities.IdentityModel;
 using LinkDev.IKEA.DAL.Persistence.Data;
 using LinkDev.IKEA.DAL.Persistence.Data.DbInitializer;
 using LinkDev.IKEA.PL.Extensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,6 +23,14 @@ namespace LinkDev.IKEA.PL
             builder.Services.AddControllersWithViews(options=>new AutoValidateAntiforgeryTokenAttribute());
             builder.Services.AddPersistenceServices(builder.Configuration);
             builder.Services.AddApplicationServices();
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
+                //Option => {
+                //    Option.Password.RequireLowercase = true;
+                //    Option.User.RequireUniqueEmail = true;
+                //}
+                ).AddEntityFrameworkStores<ApplicationDbContext>();
+
+
 
             #endregion
 
