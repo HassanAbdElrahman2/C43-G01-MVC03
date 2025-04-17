@@ -4,11 +4,13 @@ using LinkDev.IKEA.BLL.Services.Employees;
 using LinkDev.IKEA.DAL.Common.Enums;
 using LinkDev.IKEA.DAL.Entities.Employees.Enums;
 using LinkDev.IKEA.PL.ViewModels.Employees;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LinkDev.IKEA.PL.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         #region Services

@@ -5,6 +5,7 @@ using LinkDev.IKEA.DAL.Entities.IdentityModel;
 using LinkDev.IKEA.DAL.Persistence.Data;
 using LinkDev.IKEA.DAL.Persistence.Data.DbInitializer;
 using LinkDev.IKEA.PL.Extensions;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,13 +29,15 @@ namespace LinkDev.IKEA.PL
                 //    Option.Password.RequireLowercase = true;
                 //    Option.User.RequireUniqueEmail = true;
                 //}
-                ).AddEntityFrameworkStores<ApplicationDbContext>();
+                ).AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
 
             #endregion
 
-            var app = builder.Build();
+           var app = builder.Build();
 
             #region DataBase Initialization
             app.InitializeDataBase(); 
@@ -56,6 +59,7 @@ namespace LinkDev.IKEA.PL
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();
