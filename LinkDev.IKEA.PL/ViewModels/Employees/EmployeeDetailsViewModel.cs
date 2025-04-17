@@ -1,5 +1,6 @@
 ﻿using LinkDev.IKEA.DAL.Common.Enums;
 using LinkDev.IKEA.DAL.Entities.Employees.Enums;
+using Microsoft.Build.Execution;
 using System.ComponentModel.DataAnnotations;
 
 namespace LinkDev.IKEA.PL.ViewModels.Employees
@@ -29,6 +30,8 @@ namespace LinkDev.IKEA.PL.ViewModels.Employees
         public DateTime LastModifiedOn { get; set; }
         [Display(Name = "Department Name")]
         public string? DepartmetName { get; set; }
+
+        public string? ImageName { get; set; }
 
     }
 }

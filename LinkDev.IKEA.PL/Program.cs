@@ -1,9 +1,12 @@
 using LinkDev.IKEA.BLL;
 using LinkDev.IKEA.DAL;
 using LinkDev.IKEA.DAL.Contracts;
+using LinkDev.IKEA.DAL.Entities.IdentityModel;
 using LinkDev.IKEA.DAL.Persistence.Data;
 using LinkDev.IKEA.DAL.Persistence.Data.DbInitializer;
 using LinkDev.IKEA.PL.Extensions;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,10 +24,20 @@ namespace LinkDev.IKEA.PL
             builder.Services.AddControllersWithViews(options=>new AutoValidateAntiforgeryTokenAttribute());
             builder.Services.AddPersistenceServices(builder.Configuration);
             builder.Services.AddApplicationServices();
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
+                //Option => {
+                //    Option.Password.RequireLowercase = true;
+                //    Option.User.RequireUniqueEmail = true;
+                //}
+                ).AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+
 
             #endregion
 
-            var app = builder.Build();
+           var app = builder.Build();
 
             #region DataBase Initialization
             app.InitializeDataBase(); 
@@ -46,12 +59,13 @@ namespace LinkDev.IKEA.PL
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
+                pattern: "{controller=Account}/{action=Register}/{id?}")
                 .WithStaticAssets();
 
             #endregion

@@ -29,5 +29,7 @@ namespace LinkDev.IKEA.PL.ViewModels.Employees
         public EmployeeType EmployeeType { get; set; }
         [Display(Name ="Department")]
         public int? DepartmentId { get; set; }
+
+        public IFormFile? Image { get; set; }
     }
 }

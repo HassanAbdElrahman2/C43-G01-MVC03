@@ -2,11 +2,13 @@
 using LinkDev.IKEA.BLL.Services.Departments;
 using LinkDev.IKEA.DAL.Entities.Departments;
 using LinkDev.IKEA.PL.ViewModels.Departments;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace LinkDev.IKEA.PL.Controllers
 {
+    [Authorize]
     public class DepartmentController : Controller
     {
         private readonly ILogger<DepartmentController> _logger;
