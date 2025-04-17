@@ -70,5 +70,14 @@ namespace LinkDev.IKEA.PL.Controllers
            
         }
         #endregion
+
+        #region SignOut
+        [HttpGet]
+        public new async Task<IActionResult> SignOut()
+        {
+              await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(Login));
+        }
+        #endregion
     }
 }
