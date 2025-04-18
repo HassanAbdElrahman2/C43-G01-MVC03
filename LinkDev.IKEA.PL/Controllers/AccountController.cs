@@ -90,10 +90,16 @@ namespace LinkDev.IKEA.PL.Controllers
         {
             if (ModelState.IsValid)
             {
+               
+                
                 var user =  _userManager.FindByEmailAsync(model.Email).Result;
                 if (user is not null)
                 {
-                    var Email = new Email() { To = model.Email, Subject = "Reset Password", Body = "Url" };
+                    var Token = _userManager.GeneratePasswordResetTokenAsync(user).Result;
+                    var Link = Url.Action(nameof(ResetPassword), "Account"
+                        , new { Email = model.Email, Token }, Request.Scheme);
+
+                    var Email = new Email() { To = model.Email, Subject = "Reset Password", Body = Link??"Error In Opration" };
                     EmailSettings.SendEmail(Email);
                     return RedirectToAction(nameof(CheckYourInbox));
                 }
@@ -102,9 +108,38 @@ namespace LinkDev.IKEA.PL.Controllers
             return  View(model);
 
         }
-
         [HttpGet]
         public IActionResult CheckYourInbox() => View();
+        [HttpGet]
+        public IActionResult ResetPassword(string Email, string Token) 
+        {
+            TempData["email"] = Email;
+            TempData["token"]= Token;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ResetPassword(RestPasswordViewModel restPassword) 
+        {
+            if (ModelState.IsValid) 
+            {
+                var Email = TempData["email"] as string ?? String.Empty;
+                var Token = TempData["token"] as string ?? String.Empty;
+                var user = _userManager.FindByEmailAsync(Email).Result;
+                if (user is not null)
+                {
+                    var Result = _userManager.ResetPasswordAsync(user, Token, restPassword.NewPassword).Result;
+                    if (Result.Succeeded)
+                        return RedirectToAction(nameof(Login));
+                    else 
+                        foreach (var error in Result.Errors)
+                        {
+                            ModelState.AddModelError(String.Empty, error.Description);
+
+                        }
+                }
+            }
+            return View(nameof(ResetPassword));
+        }
         #endregion
     }
 }
