@@ -85,22 +85,26 @@ namespace LinkDev.IKEA.PL.Controllers
         #region Forget Password
         [HttpGet]
         public IActionResult ForgetPassword() => View();
-        [HttpPost]
-        public async Task<IActionResult> SendRestPasswordLinkAsync(ForgetPasswordViewModel model)
+        [HttpPost] 
+        public  IActionResult ForgetPassword(ForgetPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(model.Email);
+                var user =  _userManager.FindByEmailAsync(model.Email).Result;
                 if (user is not null)
                 {
                     var Email = new Email() { To = model.Email, Subject = "Reset Password", Body = "Url" };
-
+                    EmailSettings.SendEmail(Email);
+                    return RedirectToAction(nameof(CheckYourInbox));
                 }
             }
             ModelState.AddModelError(String.Empty, "Opration Invalid");
-            return View(nameof(ForgetPassword),model);
+            return  View(model);
 
         }
+
+        [HttpGet]
+        public IActionResult CheckYourInbox() => View();
         #endregion
     }
 }
