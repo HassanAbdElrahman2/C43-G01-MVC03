@@ -2,6 +2,8 @@
 using LinkDev.IKEA.PL.ViewModels.Accounts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using LinkDev.IKEA.PL.Utility;
+
 
 namespace LinkDev.IKEA.PL.Controllers
 {
@@ -77,6 +79,27 @@ namespace LinkDev.IKEA.PL.Controllers
         {
               await _signInManager.SignOutAsync();
             return RedirectToAction(nameof(Login));
+        }
+        #endregion
+
+        #region Forget Password
+        [HttpGet]
+        public IActionResult ForgetPassword() => View();
+        [HttpPost]
+        public async Task<IActionResult> SendRestPasswordLinkAsync(ForgetPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user is not null)
+                {
+                    var Email = new Email() { To = model.Email, Subject = "Reset Password", Body = "Url" };
+
+                }
+            }
+            ModelState.AddModelError(String.Empty, "Opration Invalid");
+            return View(nameof(ForgetPassword),model);
+
         }
         #endregion
     }
