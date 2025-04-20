@@ -1,0 +1,20 @@
+﻿@model RolesViewModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+<div class=" row justify-content-around align-items-center ">
+    <div class="col-8 mt-4 ">
+        <form asp-action="Create">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <partial name="Shared/_FormView" model="@Model"></partial>
+
+        </form>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<partial name="_ValidationScriptsPartial" />
+
+        

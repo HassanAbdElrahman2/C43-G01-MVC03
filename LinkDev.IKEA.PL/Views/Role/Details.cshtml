@@ -1,0 +1,15 @@
+﻿@model RolesViewModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+
+<div class=" row justify-content-around align-items-center ">
+    <div class="col-8 mt-4 "> 
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <partial name="Shared/_FormView" model="@Model"></partial>       
+    </div>
+</div>

@@ -1,0 +1,14 @@
+﻿@model RolesViewModel
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Delete</h1>
+<div class=" row justify-content-around align-items-center ">
+    <div class="col-8 mt-4 ">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <partial name="Shared/_FormView" model="@Model"></partial>
+    </div>
+</div>
+
