@@ -64,7 +64,7 @@
                     <td>@Html.DisplayFor(E => employee.Salary)</td>
                     <td><i class="fa @(employee.IsActive?"fa-solid fa-circle-check text-success":"fa-times-circle text-danger")"></i></td>
                     <td>@employee.Gender</td>
-                    <partial name="_ButtonsPartial" model="@employee.Id" />
+                    <partial name="_ButtonsPartial" model="@employee.Id.ToString()" />
                 </tr>
 
                 <div class="modal fade" id="DeleteModal-@employee.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

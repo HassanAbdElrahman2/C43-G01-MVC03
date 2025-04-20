@@ -1,0 +1,56 @@
+﻿@model RolesViewModel
+
+<div class="row col-12">
+    @if (ViewData["Title"] as string == "Delete" || ViewData["Title"] as string == "Details")
+    {
+        <div class="form-group col-6">
+            <label class="col-form-label" asp-for="Id"></label>
+            <input asp-for="Id" class="form-control" disabled />
+        </div>  
+    }
+    <div class="form-group col-6">
+        <label class="col-form-label" asp-for="Name"></label>
+        @if (ViewData["Title"] as string == "Delete" || ViewData["Title"] as string == "Details")
+        {
+            <input asp-for="Name" class="form-control" disabled />
+        }
+        else
+        {
+        <input asp-for="Name" class="form-control"/>
+        }
+
+     
+    </div>
+</div>
+<br />
+<br />
+@if (ViewData["Title"] as string == "Details")
+{
+    <div class="mt-4">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">Edit</a> |
+        <a asp-action="Index" class="btn btn-secondary">Back To List</a>
+    </div>
+}
+else if (ViewData["Title"] as string == "Delete")
+{
+    <form asp-action="ConfiramDelete" asp-route-id="@Model.Id" class="mt-4">
+        <input type="submit" value="Delete" class="btn btn-danger" />|
+        <a asp-action="Index" class="btn btn-secondary">Back To List</a>
+    </form>
+}
+else if (ViewData["Title"] as string == "Create")
+{
+    <div class="mb-3">
+        <input type="submit" value="Create" class="btn btn-primary" />|
+        <a asp-action="Index" class="btn btn-light">Cancel</a>
+    </div>
+}
+else if ((ViewData["Title"] as string) == "Edit")
+{
+    <div class="mb-3">
+        <input type="submit" value="Save" class="btn btn-primary" />|
+        <a asp-action="Index" class="btn btn-light">Cancel</a>
+    </div>
+}
+
+ 

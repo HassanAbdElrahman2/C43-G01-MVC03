@@ -2,6 +2,8 @@
 using LinkDev.IKEA.PL.ViewModels.Accounts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using LinkDev.IKEA.PL.Utility;
+
 
 namespace LinkDev.IKEA.PL.Controllers
 {
@@ -77,6 +79,66 @@ namespace LinkDev.IKEA.PL.Controllers
         {
               await _signInManager.SignOutAsync();
             return RedirectToAction(nameof(Login));
+        }
+        #endregion
+
+        #region Forget Password
+        [HttpGet]
+        public IActionResult ForgetPassword() => View();
+        [HttpPost] 
+        public  IActionResult ForgetPassword(ForgetPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+               
+                
+                var user =  _userManager.FindByEmailAsync(model.Email).Result;
+                if (user is not null)
+                {
+                    var Token = _userManager.GeneratePasswordResetTokenAsync(user).Result;
+                    var Link = Url.Action(nameof(ResetPassword), "Account"
+                        , new { Email = model.Email, Token }, Request.Scheme);
+
+                    var Email = new Email() { To = model.Email, Subject = "Reset Password", Body = Link??"Error In Opration" };
+                    EmailSettings.SendEmail(Email);
+                    return RedirectToAction(nameof(CheckYourInbox));
+                }
+            }
+            ModelState.AddModelError(String.Empty, "Opration Invalid");
+            return  View(model);
+
+        }
+        [HttpGet]
+        public IActionResult CheckYourInbox() => View();
+        [HttpGet]
+        public IActionResult ResetPassword(string Email, string Token) 
+        {
+            TempData["email"] = Email;
+            TempData["token"]= Token;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ResetPassword(RestPasswordViewModel restPassword) 
+        {
+            if (ModelState.IsValid) 
+            {
+                var Email = TempData["email"] as string ?? String.Empty;
+                var Token = TempData["token"] as string ?? String.Empty;
+                var user = _userManager.FindByEmailAsync(Email).Result;
+                if (user is not null)
+                {
+                    var Result = _userManager.ResetPasswordAsync(user, Token, restPassword.NewPassword).Result;
+                    if (Result.Succeeded)
+                        return RedirectToAction(nameof(Login));
+                    else 
+                        foreach (var error in Result.Errors)
+                        {
+                            ModelState.AddModelError(String.Empty, error.Description);
+
+                        }
+                }
+            }
+            return View(nameof(ResetPassword));
         }
         #endregion
     }

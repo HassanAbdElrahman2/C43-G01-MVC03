@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace LinkDev.IKEA.PL.Controllers
 {
-    [Authorize]
+    [Authorize ]
     public class DepartmentController : Controller
     {
         private readonly ILogger<DepartmentController> _logger;
@@ -161,7 +161,7 @@ namespace LinkDev.IKEA.PL.Controllers
         //}
 
         [HttpPost] // POST: /Department/Delete/id
-        public IActionResult Delete(int id)
+        public IActionResult ConfiramDelete(int id)
         {
      
 
